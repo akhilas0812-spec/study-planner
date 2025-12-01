@@ -1,0 +1,668 @@
+/* =========================================
+   CSS HEAVY VERSION – STUDY PLANNER UI
+   Focus: Modern, animated, gradient, glassy
+   ========================================= */
+
+/* --------- CSS Variables --------- */
+:root {
+  --bg-main: #020617;
+  --bg-elevated: #020617;
+  --bg-card: rgba(15, 23, 42, 0.95);
+  --bg-chip: #020617;
+
+  --border-subtle: #1f2937;
+  --border-strong: #334155;
+
+  --accent: #4f46e5;
+  --accent-soft: rgba(79, 70, 229, 0.18);
+  --accent-alt: #22c55e;
+  --danger: #ef4444;
+
+  --text-main: #e5e7eb;
+  --text-soft: #9ca3af;
+  --text-muted: #6b7280;
+  --text-invert: #020617;
+
+  --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.9);
+  --shadow-subtle: 0 10px 30px rgba(15, 23, 42, 0.85);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+
+  --transition-fast: 160ms ease-out;
+  --transition-slow: 260ms ease;
+
+  --font-main: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Segoe UI", sans-serif;
+}
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* ---------- Custom Scrollbar ---------- */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #4b5563 #020617;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #020617;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #4b5563;
+  border-radius: 999px;
+}
+
+/* ---------- Body Layout + Background ---------- */
+body {
+  min-height: 100vh;
+  font-family: var(--font-main);
+  background:
+    radial-gradient(circle at top left, #1d253a 0, #020617 55%, #000 100%);
+  color: var(--text-main);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Glowing background shapes */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::before {
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.35), transparent);
+  top: -10%;
+  left: -8%;
+}
+
+body::after {
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.33), transparent);
+  bottom: -12%;
+  right: -6%;
+}
+
+/* ---------- App Container ---------- */
+.app-header,
+.app-main,
+.app-footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Header ---------- */
+.app-header {
+  text-align: center;
+  padding: 28px 18px 10px;
+}
+
+.app-header h1 {
+  font-size: clamp(2.1rem, 3vw, 2.6rem);
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  background: linear-gradient(120deg, #a855f7, #f97316, #22d3ee);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.app-header p {
+  margin-top: 8px;
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  max-width: 520px;
+  margin-inline: auto;
+}
+
+/* Header sub-row: small badges / info */
+.header-meta-row {
+  margin-top: 14px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.header-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: rgba(15, 23, 42, 0.92);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  color: var(--text-soft);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.header-pill-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.9);
+}
+
+/* ---------- Main Layout ---------- */
+.app-main {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 12px 16px 42px;
+  display: grid;
+  gap: 18px;
+}
+
+/* Split into two columns on larger screens */
+.app-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.3fr);
+  gap: 16px;
+}
+
+/* ---------- Card Base Styles ---------- */
+.card {
+  position: relative;
+  background: radial-gradient(circle at top left, #020617, #020617 65%);
+  border-radius: 18px;
+  padding: 16px 16px 18px;
+  border: 1px solid rgba(148, 163, 184, 0.26);
+  box-shadow: var(--shadow-subtle);
+  overflow: hidden;
+}
+
+/* Card glow corner */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: -45%;
+  background: radial-gradient(circle at 0 0, rgba(79, 70, 229, 0.18), transparent 60%);
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+/* Card inner content wrapper */
+.card-inner {
+  position: relative;
+  z-index: 1;
+}
+
+/* Card titles */
+.card h2 {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Divider line subtle */
+.sub-divider {
+  margin: 6px 0 12px;
+  height: 1px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(148, 163, 184, 0.45),
+    transparent
+  );
+}
+
+/* ---------- Form Styles ---------- */
+.task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.form-group label {
+  font-size: 0.8rem;
+  color: var(--text-soft);
+}
+
+.form-group input,
+.form-group select {
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border-subtle);
+  background: rgba(15, 23, 42, 0.98);
+  color: var(--text-main);
+  font-size: 0.9rem;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast),
+    transform var(--transition-fast), background var(--transition-fast);
+}
+
+.form-group input::placeholder {
+  color: #4b5563;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(79, 70, 229, 0.6);
+  transform: translateY(-1px);
+  background: #020617;
+}
+
+/* Form row: responsive */
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ---------- Primary Button ---------- */
+.btn-primary {
+  align-self: flex-end;
+  margin-top: 4px;
+  padding: 9px 20px;
+  border-radius: 999px;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  background: conic-gradient(
+    from 160deg,
+    #4f46e5,
+    #7c3aed,
+    #ec4899,
+    #22d3ee,
+    #4f46e5
+  );
+  color: var(--text-invert);
+  box-shadow: 0 12px 26px rgba(30, 64, 175, 0.85);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+    filter var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Button sheen effect */
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(240, 249, 255, 0.3),
+    transparent 40%,
+    transparent 60%,
+    rgba(240, 249, 255, 0.2)
+  );
+  opacity: 0;
+  transform: translateX(-40%);
+  transition: opacity 220ms ease-out, transform 220ms ease-out;
+}
+
+.btn-primary:hover::after {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px) scale(1.01);
+  box-shadow: 0 14px 34px rgba(30, 64, 175, 0.92);
+  filter: saturate(1.1);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.9);
+}
+
+/* ---------- Tasks Header / Filter ---------- */
+.tasks-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.tasks-header h2 {
+  margin-bottom: 0;
+}
+
+.filter-select {
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border-subtle);
+  background: rgba(15, 23, 42, 0.96);
+  color: var(--text-main);
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+/* ---------- Task List ---------- */
+.task-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 360px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+/* Individual task item */
+.task-item {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: linear-gradient(
+      135deg,
+      rgba(148, 163, 184, 0.12),
+      transparent 55%
+    ),
+    #020617;
+  border: 1px solid rgba(31, 41, 55, 0.95);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+    border-color var(--transition-fast), background var(--transition-fast);
+}
+
+/* Hover elevation */
+.task-item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.9);
+  border-color: rgba(99, 102, 241, 0.7);
+}
+
+/* Left side: checkbox + text */
+.task-left {
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+  flex: 1;
+}
+
+.task-checkbox {
+  margin-top: 4px;
+  accent-color: var(--accent);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+/* Task text */
+.task-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.task-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.task-title.completed {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+/* Meta row: chips */
+.task-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+/* Small pill badges */
+.badge {
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-soft);
+  background: var(--bg-chip);
+}
+
+/* Category */
+.badge-category {
+  border-color: #0ea5e9;
+  color: #bae6fd;
+  background: rgba(15, 23, 42, 0.95);
+}
+
+/* Priority levels */
+.badge-priority-high {
+  border-color: #fb7185;
+  color: #fecaca;
+  background: rgba(127, 29, 29, 0.92);
+}
+
+.badge-priority-medium {
+  border-color: #f97316;
+  color: #fed7aa;
+  background: rgba(120, 53, 15, 0.92);
+}
+
+.badge-priority-low {
+  border-color: #22c55e;
+  color: #bbf7d0;
+  background: rgba(22, 101, 52, 0.92);
+}
+
+/* Due date badge */
+.badge-date {
+  border-style: dashed;
+}
+
+/* Right side: buttons */
+.task-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-end;
+}
+
+/* Small buttons */
+.btn-small {
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  background: #020617;
+  color: var(--text-main);
+  border: 1px solid var(--border-subtle);
+  transition: background var(--transition-fast), border-color var(--transition-fast),
+    transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.btn-small:hover {
+  background: #111827;
+  border-color: #4b5563;
+  transform: translateY(-0.5px);
+  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.95);
+}
+
+/* Delete button */
+.btn-delete {
+  background: rgba(127, 29, 29, 0.96);
+  border-color: rgba(248, 113, 113, 0.7);
+  color: #fee2e2;
+}
+
+.btn-delete:hover {
+  background: rgba(185, 28, 28, 1);
+  border-color: rgba(248, 113, 113, 1);
+}
+
+/* Empty state text */
+.empty-state {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* ---------- Extra Right Column Styling ---------- */
+/* You can make the right card a "Summary" or "Tips" later using HTML.
+   The CSS already supports nicer layout. */
+
+.summary-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.85rem;
+  color: var(--text-soft);
+}
+
+.summary-label {
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  font-size: 0.7rem;
+}
+
+.summary-value {
+  font-weight: 600;
+  color: #e5e7eb;
+}
+
+/* ---------- Footer ---------- */
+.app-footer {
+  text-align: center;
+  padding: 10px 0 18px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Subtle link styling if you add any links later */
+.app-footer a {
+  color: #93c5fd;
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(147, 197, 253, 0.7);
+}
+
+.app-footer a:hover {
+  border-bottom-style: solid;
+}
+
+/* ---------- Animations ---------- */
+@keyframes floatUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card,
+.task-item {
+  animation: floatUp 260ms ease-out;
+}
+
+/* ---------- Responsive Design ---------- */
+@media (max-width: 900px) {
+  .app-main {
+    padding-inline: 14px;
+  }
+
+  .app-grid {
+    grid-template-columns: minmax(0, 1.9fr) minmax(0, 1.4fr);
+  }
+}
+
+@media (max-width: 720px) {
+  .app-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    border-radius: 16px;
+  }
+
+  .task-item {
+    flex-direction: column;
+  }
+
+  .task-actions {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .task-list {
+    max-height: none;
+  }
+
+  .task-form {
+    gap: 10px;
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-header {
+    padding-top: 24px;
+  }
+
+  .app-header h1 {
+    font-size: 1.9rem;
+  }
+
+  .card {
+    padding: 14px 12px 16px;
+  }
+
+  .btn-primary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .tasks-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

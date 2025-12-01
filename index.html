@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study Planner</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>Study Planner</h1>
+    <p>Organise your tasks, projects and deadlines in one place.</p>
+  </header>
+
+  <main class="app-main">
+    <!-- Task Form -->
+    <section class="card">
+      <h2>Add New Task</h2>
+      <form id="taskForm" class="task-form">
+        <div class="form-group">
+          <label for="title">Task Title</label>
+          <input id="title" type="text" placeholder="e.g. Complete DBMS assignment" required />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="category">Category</label>
+            <select id="category">
+              <option value="Study">Study</option>
+              <option value="Project">Project</option>
+              <option value="Personal">Personal</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="priority">Priority</label>
+            <select id="priority">
+              <option value="Low">Low</option>
+              <option value="Medium" selected>Medium</option>
+              <option value="High">High</option>
+            </select>
+          </div>
+
+          <div class="date-wrapper">
+  <input id="dueDate" type="date" />
+  <svg class="calendar-white" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" viewBox="0 0 24 24">
+    <path d="M19 4h-1V2h-2v2H8V2H6v2H5C3.9 4 3 4.9 3 6v14c0 1.1.9 2 
+    2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+  </svg>
+</div>
+
+
+        <button type="submit" class="btn-primary">Add Task</button>
+      </form>
+    </section>
+
+    <!-- Filter + Tasks -->
+    <section class="card">
+      <div class="tasks-header">
+        <h2>My Tasks</h2>
+        <select id="filterCategory" class="filter-select">
+          <option value="All">All Categories</option>
+          <option value="Study">Study</option>
+          <option value="Project">Project</option>
+          <option value="Personal">Personal</option>
+        </select>
+      </div>
+
+      <ul id="taskList" class="task-list">
+        <!-- tasks will be added here by JS -->
+      </ul>
+
+      <p id="emptyState" class="empty-state">No tasks yet. Add one above 👆</p>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>• Keep going — you're getting closer • </p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
